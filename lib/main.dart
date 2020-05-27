@@ -27,24 +27,60 @@ class _FirstPage extends State<FirstPage> {
     return MaterialApp(
       home: Scaffold(
         body: SafeArea(
-          child: Column(
+          child: ListView(
             children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(10.0),
-                child: Row(
-                  children: <Widget>[
-                    Text('Now Playing'),
-                    SizedBox(
-                      width: 260,
+              Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      children: <Widget>[
+                        Text('Now Playing'),
+                        SizedBox(
+                          width: 260,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.arrow_forward),
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
-                    IconButton(
-                      icon: Icon(Icons.arrow_forward),
-                      onPressed: () {},
+                  ),
+                  MovieListPage('now_playing'),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      children: <Widget>[
+                        Text('Upcoming'),
+                        SizedBox(
+                          width: 260,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.arrow_forward),
+                          onPressed: () {},
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  MovieListPage('upcoming'),
+                  Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Row(
+                      children: <Widget>[
+                        Text('Popular'),
+                        SizedBox(
+                          width: 260,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.arrow_forward),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+                  MovieListPage('popular'),
+                ],
               ),
-              MovieListPage(),
             ],
           ),
         ),

@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<List<Movie>> fetchPhotos(http.Client client) async {
+Future<List<Movie>> fetchPhotos(http.Client client, String category) async {
   final response = await client.get(
-      'https://api.themoviedb.org/3/movie/popular?api_key=3d9f6ef05faa3072ee2caf7fb6870964');
+      'https://api.themoviedb.org/3/movie/$category?api_key=1500496dcaf1512b62894bd98ba83f9d');
   return compute(parsePhotos, response.body);
 }
 
@@ -60,15 +60,15 @@ class Movie {
 }
 
 class MovieListPage extends StatelessWidget {
-  final String title;
+  final String category;
 
-  MovieListPage({Key key, this.title}) : super(key: key);
+  const MovieListPage(this.category);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: FutureBuilder<List<Movie>>(
-        future: fetchPhotos(http.Client()),
+        future: fetchPhotos(http.Client(), category),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
 
