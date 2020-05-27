@@ -59,29 +59,15 @@ class Movie {
   }
 }
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final appTitle = 'Movie demo';
-
-    return MaterialApp(
-      title: appTitle,
-      home: MyHomePage(title: appTitle),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
+class MovieListPage extends StatelessWidget {
   final String title;
 
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MovieListPage({Key key, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: FutureBuilder<List<Movie>>(
+    return Container(
+      child: FutureBuilder<List<Movie>>(
         future: fetchPhotos(http.Client()),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
@@ -102,32 +88,37 @@ class PhotosList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return Container(
+      height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: photos.length,
         itemBuilder: (context, index) {
-          return Column(
-            children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(5.0),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10.0),
-                  child: Image.network(
-                    "https://image.tmdb.org/t/p/w500" +
-                        photos[index].poster_path,
-                    height: 150,
+          return Container(
+            width: 100,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  width: 100,
+                  padding: EdgeInsets.all(5.0),
+                  child: ClipRRect(
+                    borderRadius: new BorderRadius.circular(10.0),
+                    child: Image.network(
+                      "https://image.tmdb.org/t/p/w500" +
+                          photos[index].poster_path,
+                      height: 150,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                width: 100.0,
-                child: Text(
-                  photos[index].title,
-                  overflow: TextOverflow.ellipsis,
+                Flexible(
+                  child: Text(
+                    photos[index].title,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),

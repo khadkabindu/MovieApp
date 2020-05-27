@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'movie_list.dart';
+
 void main() {
   runApp(FirstPage());
 }
@@ -12,32 +14,8 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPage extends State<FirstPage> {
+  List<String> movieImages = new List();
   int _selectedIndex = 0;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Home',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 1: Search',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 3: Tv Show',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 4: Account',
-      style: optionStyle,
-    ),
-  ];
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -48,14 +26,35 @@ class _FirstPage extends State<FirstPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: Center(
-          child: _widgetOptions.elementAt(_selectedIndex),
+        body: SafeArea(
+          child: Column(
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(10.0),
+                child: Row(
+                  children: <Widget>[
+                    Text('Now Playing'),
+                    SizedBox(
+                      width: 260,
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.arrow_forward),
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+              ),
+              MovieListPage(),
+            ],
+          ),
         ),
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(
+                Icons.home,
+              ),
               title: Text('Home'),
             ),
             BottomNavigationBarItem(
